@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'application'
+    id 'org.springframework.boot' version '2.4.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.3.10.RELEASE'
+}
+
+mainClassName="com.zedapps.todoboot.AppRunner"
