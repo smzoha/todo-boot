@@ -12,6 +12,9 @@ repositories {
 
 dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.3.10.RELEASE'
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.10.RELEASE'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
 }
 
 mainClassName="com.zedapps.todoboot.AppRunner"
