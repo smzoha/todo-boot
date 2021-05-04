@@ -20,7 +20,19 @@
     <jsp:include page="_navbar.jsp"/>
 
     <div class="container" style="padding-top: 10pt">
-        <h1>Welcome Back!</h1>
+        <div class="row">
+            <h1>Welcome to To-Do!</h1>
+        </div>
+
+        <div class="row justify-content-center">
+            <a href="login" class="btn btn-primary btn-lg">
+                <i class="fas fa-sign-in-alt"></i>&nbsp;<c:out value="Login"/>
+            </a>
+            &nbsp;&nbsp;
+            <a href="register" class="btn btn-primary btn-lg">
+                <i class="fas fa-signature"></i>&nbsp;<c:out value="Register"/>
+            </a>
+        </div>
     </div>
 </body>
 </html>
