@@ -17,6 +17,15 @@ CREATE TABLE privilege (
     CONSTRAINT fk_privilege_username FOREIGN KEY (username) REFERENCES user_account (username)
 );
 
+CREATE TABLE persistent_logins (
+    username VARCHAR(30) NOT NULL,
+    series VARCHAR(64) NOT NULL,
+    token VARCHAR(64) NOT NULL,
+    last_used TIMESTAMP NOT NULL,
+    CONSTRAINT pk_persistent_login PRIMARY KEY (series),
+    CONSTRAINT fk_persistent_login_username FOREIGN KEY (username) REFERENCES user_account(username)
+);
+
 CREATE TABLE task (
 	id BIGINT NOT NULL,
 	title VARCHAR(40) NOT NULL,

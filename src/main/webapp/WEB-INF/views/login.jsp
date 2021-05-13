@@ -52,6 +52,15 @@
                 </div>
             </div>
 
+            <div class="row form-group form-check-inline col-sm-12 justify-content-center">
+                <div class="col-sm-2 text-right">
+                    <label for="remember-me" class="form-check-label"><strong>Remember Me:</strong></label>
+                </div>
+                <div class="col-sm-1">
+                    <input type="checkbox" id="remember-me" name="remember-me" class="form-check-input"/>
+                </div>
+            </div>
+
             <div class="row col-sm-12 justify-content-center">
                 <button type="submit" name="login" value="Login" class="btn btn-primary btn-lg">
                     <c:out value="Login"/>
