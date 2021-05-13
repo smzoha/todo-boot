@@ -21,9 +21,15 @@
     <jsp:include page="_navbar.jsp"/>
 
     <div class="container" style="padding-top: 10pt">
-        <div class="row">
-            <h2><c:out value="Please login"/></h2>
+        <div class="row col-sm-12 justify-content-center">
+            <h2 class="text-dark"><c:out value="Login"/></h2>
         </div>
+
+        <c:if test="${not empty param.error}">
+            <div class="row col-sm-12 alert alert-danger justify-content-center">
+                <c:out value="Incorrect Username or Password"/>
+            </div>
+        </c:if>
 
         <form:form method="POST">
             <div class="row form-group">
