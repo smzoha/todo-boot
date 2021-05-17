@@ -31,6 +31,12 @@
             </div>
         </c:if>
 
+        <c:if test="${not empty param.logout}">
+            <div class="row col-sm-12 alert alert-success justify-content-center">
+                <c:out value="Successfully Logged Out!"/>
+            </div>
+        </c:if>
+
         <form:form method="POST">
             <div class="row form-group">
                 <div class="col-sm-3 text-right">
