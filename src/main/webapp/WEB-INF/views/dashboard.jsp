@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sc" uri="http://www.springframework.org/security/tags" %>
 
 <%--
     @author Shamah M Zoha
@@ -22,16 +23,6 @@
     <div class="container" style="padding-top: 10pt">
         <div class="row">
             <h1>Welcome to To-Do!</h1>
-        </div>
-
-        <div class="row justify-content-center">
-            <a href="login" class="btn btn-primary btn-lg">
-                <i class="fas fa-sign-in-alt"></i>&nbsp;<c:out value="Login"/>
-            </a>
-            &nbsp;&nbsp;
-            <a href="register" class="btn btn-primary btn-lg">
-                <i class="fas fa-signature"></i>&nbsp;<c:out value="Register"/>
-            </a>
         </div>
     </div>
 </body>
