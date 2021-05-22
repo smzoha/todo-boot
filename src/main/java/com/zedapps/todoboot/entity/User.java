@@ -27,7 +27,6 @@ public class User implements Serializable {
     @Column(length = 30, nullable = false)
     private String username;
 
-    @NotNull(message = "{error.required}")
     @Column(length = 128, nullable = false)
     private String password;
 
@@ -46,6 +45,12 @@ public class User implements Serializable {
     @ElementCollection
     @CollectionTable(name = "privilege", joinColumns = @JoinColumn(name = "username"))
     private List<String> privileges;
+
+    @Transient
+    private String inputPassword1;
+
+    @Transient
+    private String inputPassword2;
 
     public User() {
     }
@@ -104,6 +109,22 @@ public class User implements Serializable {
 
     public void setPrivileges(List<String> privileges) {
         this.privileges = privileges;
+    }
+
+    public String getInputPassword1() {
+        return inputPassword1;
+    }
+
+    public void setInputPassword1(String inputPassword1) {
+        this.inputPassword1 = inputPassword1;
+    }
+
+    public String getInputPassword2() {
+        return inputPassword2;
+    }
+
+    public void setInputPassword2(String inputPassword2) {
+        this.inputPassword2 = inputPassword2;
     }
 
     @Override
