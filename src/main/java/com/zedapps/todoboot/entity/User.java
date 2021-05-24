@@ -22,22 +22,22 @@ public class User implements Serializable {
     @SequenceGenerator(name = "userSeq", sequenceName = "user_account_seq", allocationSize = 1)
     private long id;
 
-    @NotNull(message = "Username is required")
-    @Size(min = 3, max = 30, message = "Username must be between 3-30 characters")
+    @NotNull(message = "{error.required}")
+    @Size(min = 3, max = 30, message = "{error.size.range.exceeded.strict}")
     @Column(length = 30, nullable = false)
     private String username;
 
-    @NotNull(message = "Password is required")
+    @NotNull(message = "{error.required}")
     @Column(length = 128, nullable = false)
     private String password;
 
-    @NotNull(message = "First Name is required")
-    @Size(max = 40, message = "Cannot be greater than 40 characters")
+    @NotNull(message = "{error.required}")
+    @Size(max = 40, message = "{error.size.max.exceeded}")
     @Column(length = 40, nullable = false)
     private String firstName;
 
-    @NotNull(message = "Last Name is required")
-    @Size(max = 40, message = "Cannot be greater than 40 characters")
+    @NotNull(message = "{error.required}")
+    @Size(max = 40, message = "{error.size.max.exceeded}")
     @Column(length = 40, nullable = false)
     private String lastName;
 

@@ -24,15 +24,15 @@ public class Task implements Serializable {
     @SequenceGenerator(name = "taskSeq", sequenceName = "task_seq", allocationSize = 1)
     private long id;
 
-    @NotBlank(message = "Title is required")
-    @Size(max = 40, message = "Cannot be greater than 40 characters")
+    @NotBlank(message = "{error.required}")
+    @Size(max = 40, message = "{error.size.max.exceeded}")
     @Column(length = 40, nullable = false)
     private String title;
 
-    @Size(max = 1000, message = "Cannot be greater than 1000 characters")
+    @Size(max = 1000, message = "{error.size.max.exceeded}")
     private String description;
 
-    @Future(message = "Must be later than today")
+    @Future(message = "{error.later.than.today}")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dueDate;
 
