@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sc" uri="http://www.springframework.org/security/tags" %>
 
 <%--
@@ -22,7 +23,7 @@
 
     <div class="container" style="padding-top: 10pt">
         <div class="row">
-            <h1>Welcome to To-Do!</h1>
+            <h1><fmt:message key="msg.welcome"/></h1>
         </div>
     </div>
 </body>
