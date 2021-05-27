@@ -1,6 +1,7 @@
 package com.zedapps.todoboot.controller;
 
 import com.zedapps.todoboot.entity.User;
+import com.zedapps.todoboot.repository.UserRepository;
 import com.zedapps.todoboot.service.UserService;
 import com.zedapps.todoboot.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * @author Shamah M Zoha
@@ -24,6 +28,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserValidator userValidator;
@@ -41,17 +48,62 @@ public class UserController {
         return "user";
     }
 
+    @GetMapping("/user/list")
+    public String showUserList(ModelMap model) {
+        model.put("userList", userService.getUserList());
+
+        return "userList";
+    }
+
+    @GetMapping(value = "/user")
+    public String editUser(@RequestParam long userId, ModelMap model) {
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (Objects.isNull(user)) {
+            throw new NoResultException("Couldn't find user with provided id!");
+        }
+
+        model.put("user", user);
+
+        return "user";
+    }
+
+    @PostMapping(value = "/user", params = "toggleStatusById")
+    public String toggleStatusWithId(@RequestParam long userId, RedirectAttributes redirectAttributes) {
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (Objects.isNull(user)) {
+            throw new NoResultException("Couldn't find user with provided id!");
+        }
+
+        userRepository.updateUserStatus(userId, !user.isActive());
+
+        redirectAttributes.addAttribute("toggleStatusSuccess", user.isActive());
+
+        return "redirect:/user/list";
+    }
+
     @PostMapping(value = {"/user", "/register"})
-    public String saveUser(@Valid @ModelAttribute User user, Errors errors, RedirectAttributes redirectAttributes) {
+    public String saveUser(@Valid @ModelAttribute User user, Errors errors,
+                           HttpServletRequest request, RedirectAttributes redirectAttributes) {
+
         if (errors.hasErrors()) {
             return "user";
         }
 
-        user = userService.saveUser(user);
+        boolean isToggleStatusAction = request.getParameterMap().containsKey("toggleStatus");
+        user = userService.save(user, isToggleStatusAction);
 
-        redirectAttributes.addAttribute("registerSuccess", true);
+        if (user.isNew()) {
+            redirectAttributes.addAttribute("registerSuccess", true);
+        } else {
+            if (isToggleStatusAction) {
+                redirectAttributes.addAttribute("toggleStatusSuccess", !user.isActive());
+            } else {
+                redirectAttributes.addAttribute("updateSuccess", true);
+            }
+        }
 
-        return "redirect:/";
+        return user.isNew() ? "redirect:/" : "redirect:/user/list";
     }
-
 }

@@ -22,6 +22,12 @@
     <jsp:include page="_navbar.jsp"/>
 
     <div class="container" style="padding-top: 10pt">
+        <c:if test="${not empty param.registerSuccess}">
+            <div class="row col-sm-12 alert alert-success justify-content-center">
+                <fmt:message key="prompt.user.register.success"/>
+            </div>
+        </c:if>
+
         <div class="row">
             <h1><fmt:message key="msg.welcome"/></h1>
         </div>

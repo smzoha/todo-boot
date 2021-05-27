@@ -32,7 +32,7 @@
             </div>
         </c:if>
 
-        <c:if test="${not empty param.logout}">
+        <c:if test="${not empty param.statusChangeSuccess}">
             <div class="row col-sm-12 alert alert-success justify-content-center">
                 <fmt:message key="prompt.logout.success"/>
             </div>

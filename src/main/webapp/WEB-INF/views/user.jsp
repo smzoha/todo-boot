@@ -10,7 +10,7 @@
 <html>
 <head>
     <c:choose>
-        <c:when test="${user.id eq 0}">
+        <c:when test="${user.isNew()}">
             <title>To-Do | Registration</title>
         </c:when>
         <c:otherwise>
@@ -30,8 +30,12 @@
         <jsp:include page="_navbar.jsp"/>
 
         <div class="container" style="padding-top: 10pt">
+            <sc:authorize access="isAuthenticated()">
+                <sc:authentication property="principal.username" var="username"/>
+            </sc:authorize>
+
             <div class="row col-sm-12 justify-content-center">
-                <fmt:message key="${user.id eq 0 ? 'label.registration' : 'label.user.details'}" var="pageTitle"/>
+                <fmt:message key="${user.isNew() ? 'label.registration' : 'label.user.details'}" var="pageTitle"/>
                 <h2 class="text-dark"><c:out value="${pageTitle}"/></h2>
             </div>
 
@@ -40,7 +44,7 @@
                     <label for="username"><strong><fmt:message key="label.username"/>:</strong></label>
                 </div>
                 <c:choose>
-                    <c:when test="${user.id eq 0}">
+                    <c:when test="${user.isNew()}">
                         <div class="col-sm-6">
                             <form:input path="username" maxlength="30" cssClass="form-control"/><br/>
                             <form:errors path="username" cssClass="text-danger"/>
@@ -59,12 +63,20 @@
                     <label for="inputPassword1"><strong><fmt:message key="label.password"/>:</strong></label>
                 </div>
                 <div class="col-sm-6">
-                    <form:input type="password" path="inputPassword1" maxlength="32" cssClass="form-control"/><br/>
+                    <form:input type="password" path="inputPassword1" maxlength="32" cssClass="form-control"
+                                disabled="${not empty username and username eq user.username}"/><br/>
+
+                    <c:if test="${not user.isNew()}">
+                        <small id="passwordGuide" class="form-text text-muted">
+                            <fmt:message key="hint.password.update"/>
+                        </small>
+                    </c:if>
+
                     <form:errors path="inputPassword1" cssClass="text-danger"/>
                 </div>
             </div>
 
-            <c:if test="${user.id eq 0}">
+            <c:if test="${user.isNew()}">
                 <div class="row form-group">
                     <div class="col-sm-3 text-right">
                         <label for="inputPassword2"><strong><fmt:message key="label.retype.password"/>:</strong></label>
@@ -98,7 +110,7 @@
 
             <div class="row col-sm-12 justify-content-center">
                 <button type="submit" name="save" value="Save" class="btn btn-primary btn-lg">
-                    <fmt:message key="${user.id eq 0 ? 'label.register' : 'label.update'}" var="saveButtonLbl"/>
+                    <fmt:message key="${user.isNew() ? 'label.register' : 'label.update'}" var="saveButtonLbl"/>
                     <c:out value="${saveButtonLbl}"/>
                 </button>
 

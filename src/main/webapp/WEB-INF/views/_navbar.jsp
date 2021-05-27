@@ -11,19 +11,19 @@
     <ul class="navbar-nav mr-auto">
         <sc:authorize access="isAuthenticated()">
             <li class="nav-item pr-1">
-                <a class="nav-link" href="task">
+                <a class="nav-link" href="/todo/task">
                     <i class="fas fa-plus"></i>&nbsp;<fmt:message key="label.add.task"/>
                 </a>
             </li>
             <li class="nav-item pr-1">
-                <a class="nav-link" href="task/list">
+                <a class="nav-link" href="/todo/task/list">
                     <i class="fas fa-clipboard-list"></i>&nbsp;<fmt:message key="label.task.list"/>
                 </a>
             </li>
 
             <sc:authorize access="hasAuthority('ADMIN')">
                 <li class="nav-item pr-1">
-                    <a class="nav-link" href="user/list">
+                    <a class="nav-link" href="/todo/user/list">
                         <i class="fas fa-user-friends"></i>&nbsp;<fmt:message key="label.user.list"/>
                     </a>
                 </li>
@@ -34,12 +34,12 @@
     <ul class="navbar-nav">
         <sc:authorize access="!isAuthenticated()">
             <li class="nav-item pr-1">
-                <a href="login" class="btn btn-success">
+                <a href="/todo/login" class="btn btn-success">
                     <i class="fas fa-sign-in-alt"></i>&nbsp;<fmt:message key="label.login"/>
                 </a>
             </li>
             <li class="nav-item pr-1">
-                <a href="register" class="btn btn-primary">
+                <a href="/todo/register" class="btn btn-primary">
                     <i class="fas fa-signature"></i>&nbsp;<fmt:message key="label.register"/>
                 </a>
             </li>
@@ -57,7 +57,7 @@
                 </div>
             </li>
             <li class="nav-item pr-1">
-                <a class="btn btn-danger" href="perform_logout">
+                <a class="btn btn-danger" href="/todo/perform_logout">
                     <i class="fas fa-sign-out-alt"></i>&nbsp;<fmt:message key="label.logout"/>
                 </a>
             </li>

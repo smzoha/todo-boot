@@ -1,11 +1,15 @@
 package com.zedapps.todoboot.entity;
 
+import org.springframework.util.StringUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Shamah M Zoha
@@ -126,6 +130,19 @@ public class User implements Serializable {
 
     public void setInputPassword2(String inputPassword2) {
         this.inputPassword2 = inputPassword2;
+    }
+
+    @Transient
+    public boolean isNew() {
+        return this.getId() == 0L;
+    }
+
+    @Transient
+    public String getPrivilegesString() {
+        return new ArrayList<>(privileges).stream()
+                .map(priv -> StringUtils.capitalize(priv.toLowerCase()))
+                .sorted()
+                .collect(Collectors.joining(", "));
     }
 
     @Override
