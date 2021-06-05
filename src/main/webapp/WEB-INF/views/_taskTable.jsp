@@ -24,11 +24,13 @@
                 <div class="col-sm-9">
                     <strong class="text-white"><fmt:message key="${param.sectionTitleKey}"/></strong>
                 </div>
-                <div class="col-sm-3 text-right">
-                    <a href="#" class="btn btn-primary" data-toggle="collapse" data-target="#${param.sectionId}">
-                        <fmt:message key="label.show.hide"/>
-                    </a>
-                </div>
+                <c:if test="${param.showCollapseBtn}">
+                    <div class="col-sm-3 text-right">
+                        <a href="#" class="btn btn-primary" data-toggle="collapse" data-target="#${param.sectionId}">
+                            <fmt:message key="label.show.hide"/>
+                        </a>
+                    </div>
+                </c:if>
             </div>
         </div>
         <div id="${param.sectionId}" class="card-body collapse show">

@@ -34,6 +34,7 @@
                     <jsp:param name="taskList" value="pendingTasks"/>
                     <jsp:param name="tableId" value="pendingTasksTable"/>
                     <jsp:param name="sectionId" value="pendingTasksSection"/>
+                    <jsp:param name="showCollapseBtn" value="true"/>
                     <jsp:param name="sectionTitleKey" value="label.section.pending.tasks"/>
                     <jsp:param name="showActionsColumn" value="true"/>
                     <jsp:param name="includeCompleted" value="false"/>
@@ -47,6 +48,7 @@
                     <jsp:param name="taskList" value="completedTasks"/>
                     <jsp:param name="tableId" value="completedTasksTable"/>
                     <jsp:param name="sectionId" value="completedTasksSection"/>
+                    <jsp:param name="showCollapseBtn" value="true"/>
                     <jsp:param name="sectionTitleKey" value="label.section.completed.tasks"/>
                     <jsp:param name="showActionsColumn" value="true"/>
                     <jsp:param name="includeCompleted" value="true"/>
@@ -60,6 +62,7 @@
                     <jsp:param name="taskList" value="archivedTasks"/>
                     <jsp:param name="tableId" value="archivedTasksTable"/>
                     <jsp:param name="sectionId" value="archivedTasksSection"/>
+                    <jsp:param name="showCollapseBtn" value="true"/>
                     <jsp:param name="sectionTitleKey" value="label.section.archived.tasks"/>
                     <jsp:param name="showActionsColumn" value="false"/>
                     <jsp:param name="includeCompleted" value="true"/>
