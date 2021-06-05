@@ -1,5 +1,6 @@
 package com.zedapps.todoboot.config;
 
+import com.zedapps.todoboot.service.AppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,16 +24,11 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String USER_BY_USERNAME_SQL = "SELECT username, password, active" +
-            " FROM user_account" +
-            " WHERE username = ?";
-
-    private static final String PRIVILEGE_BY_USERNAME_SQL = "SELECT username, privilege" +
-            " FROM privilege" +
-            " WHERE username = ?";
-
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private AppUserDetailsService appUserDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -62,11 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery(USER_BY_USERNAME_SQL)
-                .authoritiesByUsernameQuery(PRIVILEGE_BY_USERNAME_SQL);
+        auth.userDetailsService(appUserDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean

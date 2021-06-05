@@ -42,8 +42,9 @@ public class User implements Serializable {
 
     private boolean active;
 
-    @ElementCollection
-    @CollectionTable(name = "privilege", joinColumns = @JoinColumn(name = "username"))
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "privilege")
+    @CollectionTable(name = "privilege", joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
     private List<String> privileges;
 
     @Transient

@@ -4,7 +4,10 @@ import com.zedapps.todoboot.entity.enums.Priority;
 import com.zedapps.todoboot.entity.enums.Status;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
