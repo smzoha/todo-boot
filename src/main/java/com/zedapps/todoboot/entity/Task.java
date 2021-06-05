@@ -35,7 +35,7 @@ public class Task implements Serializable {
     @Size(max = 1000, message = "{error.size.max.exceeded}")
     private String description;
 
-    @Future(message = "{error.later.than.today}")
+    @NotNull(message = "{error.required}")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dueDate;
 
@@ -149,6 +149,11 @@ public class Task implements Serializable {
 
     public void setCompletedDate(Date completedDate) {
         this.completedDate = completedDate;
+    }
+
+    @Transient
+    public boolean isNew() {
+        return this.getId() == 0L;
     }
 
     @Override
