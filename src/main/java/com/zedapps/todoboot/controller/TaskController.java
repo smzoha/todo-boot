@@ -4,8 +4,8 @@ import com.zedapps.todoboot.config.AppUserDetails;
 import com.zedapps.todoboot.entity.Task;
 import com.zedapps.todoboot.entity.enums.Priority;
 import com.zedapps.todoboot.repository.TaskRepository;
-import com.zedapps.todoboot.service.TaskService;
 import com.zedapps.todoboot.repository.UserRepository;
+import com.zedapps.todoboot.service.TaskService;
 import com.zedapps.todoboot.validator.TaskValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -85,7 +85,10 @@ public class TaskController {
 
         task = taskService.updateFromList(task, getUserId(auth), request);
 
-        return "redirect:list";
+        boolean dashboardAction = request.getParameterMap().containsKey("dashboardAction")
+                && Boolean.parseBoolean(request.getParameter("dashboardAction"));
+
+        return dashboardAction ? "redirect:/" : "redirect:list";
     }
 
     @PostMapping

@@ -46,11 +46,12 @@
         </sc:authorize>
         <sc:authorize access="isAuthenticated()">
             <li class="nav-item pr-1">
-                <sc:authentication property="principal.username" var="username"/>
+                <sc:authentication property="principal.firstName" var="firstName"/>
+                <sc:authentication property="principal.lastName" var="lastName"/>
 
                 <div class="nav-link text-white">
                     <fmt:message key="label.user.greet" var="greeting">
-                        <fmt:param value="${username}"/>
+                        <fmt:param value="${firstName} ${lastName}"/>
                     </fmt:message>
 
                     <c:out value="${greeting}"/>
