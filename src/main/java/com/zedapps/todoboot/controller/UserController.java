@@ -91,10 +91,11 @@ public class UserController {
             return "user";
         }
 
+        boolean isNew = user.isNew();
         boolean isToggleStatusAction = request.getParameterMap().containsKey("toggleStatus");
         user = userService.save(user, isToggleStatusAction);
 
-        if (user.isNew()) {
+        if (isNew) {
             redirectAttributes.addAttribute("registerSuccess", true);
         } else {
             if (isToggleStatusAction) {
@@ -104,6 +105,6 @@ public class UserController {
             }
         }
 
-        return user.isNew() ? "redirect:/" : "redirect:/user/list";
+        return isNew ? "redirect:/" : "redirect:/user/list";
     }
 }
