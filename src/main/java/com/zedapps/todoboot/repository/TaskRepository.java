@@ -17,6 +17,6 @@ import java.util.List;
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
     @Query("FROM Task WHERE createdBy.id = :userId AND status IN :status")
-    public List<Task> getTaskByUserAndStatus(@Param("userId") long userId, @Param("status") List<Status> status);
+    List<Task> getTaskByUserAndStatus(@Param("userId") long userId, @Param("status") List<Status> status);
 
 }

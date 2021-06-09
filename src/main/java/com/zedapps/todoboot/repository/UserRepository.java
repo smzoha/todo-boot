@@ -17,11 +17,11 @@ import javax.transaction.Transactional;
 public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query("FROM User WHERE username = :username")
-    public User getUserByUsername(@Param("username") String username);
+    User getUserByUsername(@Param("username") String username);
 
     @Modifying
     @Transactional
     @Query("UPDATE User SET active = :active WHERE id = :userId")
-    public int updateUserStatus(@Param("userId") long userId, @Param("active") boolean newActiveStatus);
+    int updateUserStatus(@Param("userId") long userId, @Param("active") boolean newActiveStatus);
 
 }
