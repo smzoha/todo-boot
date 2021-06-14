@@ -4,6 +4,8 @@ import com.zedapps.todoboot.entity.User;
 import com.zedapps.todoboot.repository.UserRepository;
 import com.zedapps.todoboot.service.UserService;
 import com.zedapps.todoboot.validator.UserValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ import java.util.Objects;
 @SessionAttributes("user")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
@@ -43,6 +47,8 @@ public class UserController {
 
     @GetMapping("/register")
     public String showRegistration(ModelMap model) {
+        logger.debug("[GET] path='/register': navigating to registration");
+
         model.put("user", new User());
 
         return "user";
@@ -50,6 +56,8 @@ public class UserController {
 
     @GetMapping("/user/list")
     public String showUserList(ModelMap model) {
+        logger.debug("[GET] path='/user/list': navigating to userList");
+
         model.put("userList", userService.getUserList());
 
         return "userList";
@@ -57,6 +65,8 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public String editUser(@RequestParam long userId, ModelMap model) {
+        logger.debug("[GET] path='/user': navigating to user details for edit");
+
         User user = userRepository.findById(userId).orElse(null);
 
         if (Objects.isNull(user)) {
@@ -64,6 +74,8 @@ public class UserController {
         }
 
         model.put("user", user);
+
+        logger.debug("[GET] path='/user': loading user details for userId=" + user.getId());
 
         return "user";
     }
@@ -79,6 +91,8 @@ public class UserController {
         userRepository.updateUserStatus(userId, !user.isActive());
 
         redirectAttributes.addAttribute("toggleStatusSuccess", user.isActive());
+
+        logger.debug("[POST] path='/user': toggling user status from list. userId=" + userId);
 
         return "redirect:/user/list";
     }
@@ -104,6 +118,8 @@ public class UserController {
                 redirectAttributes.addAttribute("updateSuccess", true);
             }
         }
+
+        logger.debug("[POST] path='/user': saving user. userId=" + user.getId());
 
         return isNew ? "redirect:/" : "redirect:/user/list";
     }

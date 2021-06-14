@@ -7,6 +7,8 @@ import com.zedapps.todoboot.repository.TaskRepository;
 import com.zedapps.todoboot.repository.UserRepository;
 import com.zedapps.todoboot.service.TaskService;
 import com.zedapps.todoboot.validator.TaskValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -36,6 +38,8 @@ import static com.zedapps.todoboot.entity.enums.Status.*;
 @SessionAttributes("task")
 public class TaskController {
 
+    private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
+
     @Autowired
     private TaskService taskService;
 
@@ -60,21 +64,29 @@ public class TaskController {
 
     @GetMapping
     public String getTask(@RequestParam(required = false) Long taskId, Authentication auth, ModelMap model) {
+        logger.debug("[GET] path='/task': navigating to task");
+
         Task task = getTask(taskId, ((AppUserDetails) auth.getPrincipal()).getUserId());
 
         model.put("task", task);
         model.put("priorityList", Arrays.asList(Priority.values()));
+
+        logger.debug("[GET] path='/task': loading task with id=" + task.getId() + " for user=" + ((AppUserDetails) auth.getPrincipal()).getUsername());
 
         return "task";
     }
 
     @GetMapping("/list")
     public String getTaskList(Authentication auth, ModelMap model) {
+        logger.debug("[GET] path='/task/list': navigating to task list");
+
         long userId = getUserId(auth);
 
         model.put("pendingTasks", taskRepository.getTaskByUserAndStatus(userId, Collections.singletonList(ACTIVE)));
         model.put("completedTasks", taskRepository.getTaskByUserAndStatus(userId, Collections.singletonList(COMPLETED)));
         model.put("archivedTasks", taskRepository.getTaskByUserAndStatus(userId, Arrays.asList(DELETED, ARCHIVED)));
+
+        logger.debug("[GET] path='/task/list': loading task list for userId=" + userId);
 
         return "taskList";
     }
@@ -87,6 +99,8 @@ public class TaskController {
 
         boolean dashboardAction = request.getParameterMap().containsKey("dashboardAction")
                 && Boolean.parseBoolean(request.getParameter("dashboardAction"));
+
+        logger.debug("[POST] path='/task/list': updating task from list. taskId=" + task.getId());
 
         return dashboardAction ? "redirect:/" : "redirect:list";
     }
@@ -101,6 +115,8 @@ public class TaskController {
         long userId = getUserId(auth);
 
         task = taskService.save(task, userId, request);
+
+        logger.debug("[POST] path='/task': saving task. taskId=" + task.getId());
 
         return isNew ? "redirect:/" : "redirect:/task/list";
     }
