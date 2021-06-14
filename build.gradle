@@ -22,6 +22,8 @@ dependencies {
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.10.RELEASE'
     implementation group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.3.9.RELEASE'
+
+    implementation group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot', version: '3.0.3'
 }
 
 mainClassName="com.zedapps.todoboot.AppRunner"
