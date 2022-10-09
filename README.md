@@ -18,7 +18,7 @@ The aim of the project was to test the functionalities of Spring Boot, Spring Da
 
 # How to Use
 0. Your device must have JDK 1.8, Tomcat 9.0 and PostgreSQL installed
-   * The project does not use Gradle wrapper, so you may have to cofigure it or download Gradle 5.6.4
+   * The project does not use Gradle wrapper, so you may have to configure it
 1. Create a database named `todo`, such that the database is accessible as `localhost:5432/todo`
 2. Create a user named `todo-app` and authorize permission to the aforementioned user
 3. Run the database scripts found in `todo-boot/src/main/resources/db-scripts.sql` to initialize the database
@@ -36,7 +36,7 @@ The aim of the project was to test the functionalities of Spring Boot, Spring Da
 # Prerequisite Links
 * [Oracle JDK8](https://www.oracle.com/java/technologies/downloads/#java8)
 * [PostgreSQL](https://www.postgresql.org/)
-* [Gradle](https://gradle.org/) -- older releases, as used in this project, can be found [here](https://gradle.org/releases)
+* [Gradle](https://gradle.org/)
 * [Apache Tomcat](https://tomcat.apache.org/)
 
 ---
